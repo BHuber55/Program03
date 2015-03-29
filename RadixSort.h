@@ -110,7 +110,7 @@ void RadixSort<T>::radixSortAsc(T** sort, int num_to_sort, int num_chars, char(*
 }
 
 template < class T >
-void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, char (*getRadixChar) (T* st, int index))
+void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, char(*getRadixChar)(T* st, int index))
 {
    //DO THIS
 	int num_queues = 37;
@@ -149,7 +149,7 @@ void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, ch
 }
 
 template < class T >
-void RadixSort<T>::radixSortDesc(T** sort, int num_to_sort, int num_chars, char (*getRadixChar)(T* st, int index))
+void RadixSort<T>::radixSortDesc(T** sort, int num_to_sort, int num_chars, char(*getRadixChar)(T* st, int index))
 {
 	int num_queues = 37;  //covers letters and digits
 	QueueLinked<T>** bins = new QueueLinked<T>*[num_queues];  
@@ -166,7 +166,7 @@ void RadixSort<T>::radixSortDesc(T** sort, int num_to_sort, int num_chars, char 
 		//DO THIS
 		for (int x = 0; x < num_to_sort; x++)
 		{
-			char the_char = (*getRadixSort(sort[x], i));
+			char the_char = (*getRadixChar)(sort[x], i);
 			int placement = ASCII(the_char);
 			bins[placement]->enqueue(sort[x]);
 		}

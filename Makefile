@@ -1,7 +1,7 @@
 AutomatedMakefile = am
 CC = g++
 
-FILES = RadixSort.h
+FILES = RadixSortDriver.o
 EXECUTABLE = RadixSortDriver.exe
 
 PROJECT_PATH = $(PROJECT_DIR)
@@ -16,7 +16,6 @@ all: Project
 
 Project: 			$(FILES)
 				$(LINK) $(EXECUTABLE) $(FILES) $(LIBS)
-RadixSort.o: RadixSort.o 
-					$(COMPILE) RadixSort.cpp
 					
-RadixSortDriver.o: RadixSortDriver.cpp RadixSort.h 					
+RadixSortDriver.o: 	RadixSort.h RadixSortDriver.cpp 
+								$(COMPILE) RadixSortDriver.cpp

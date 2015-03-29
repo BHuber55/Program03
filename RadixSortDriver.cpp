@@ -44,8 +44,8 @@ int main()
 	//test both radix sort methods using the cds array
 
 	//ascending first.
-	bool asc = true;
-	CD** cds_asc = RadixSort<CD>::radixSort(cds, count, 50, asc, &CD::getRadixChar);
+	bool ascending = true;
+	CD** cds_asc = RadixSort<CD>::radixSort(cds, count, 50, ascending, &CD::getRadixChar);
 
 	cout << "This is ascending order......" << endl;
 	for (int i = 0; i < count; i++)
@@ -58,8 +58,8 @@ int main()
 	cin.get();
 	cout << endl << endl << endl;
 
-	asc = false;
-	CD** cds_desc = RadixSort<CD>::radixSort(cds, count, 50, asc, &CD::getRadixChar);
+	ascending = false;
+	CD** cds_desc = RadixSort<CD>::radixSort(cds, count, 50, ascending, &CD::getRadixChar);
 
 	cout << "This is descending order........." << endl;
 

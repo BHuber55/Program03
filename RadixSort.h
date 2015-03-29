@@ -5,47 +5,45 @@
 using CSC2110::QueueLinked;
 #include "CD.h"
 
-//had to look up ascii values for this lab.. made it interesting for sure.
-
 template < class T >
 class RadixSort
 {
+	/*
+		
+	*/
    private:
 	   /*
-		PRE:  
-		POST: 
+		PRE:  Must pass a 'bin' that is expected to be altared, and parameters cannot be null.
+		POST: Will sort and return the 'bin' that was passed to the function.
 	   */
 		static void binSort(QueueLinked<T>* bin, int curr_char, int num_chars, char (*getRadixChar) (T* item, int index));
 		/*
-		PRE: 
-		POST: 
+		PRE:  Must pass 'sort', a pointer to an array of pointers that is to be sorted and returned, parameters cannot be null.
+		POST: Returns an ascending sorted version of the 'sort' that was passed to the function.
 		*/
 		static void radixSortAsc(T** sort, int num_to_sort, int num_chars, char(*getRadixChar) (T* item, int index));  //algorithm 1
 		/*
-		PRE:  
-		POST: 
+		PRE:  Must pass 'sort', a pointer to an array of pointers that is to be sorted and returned, parameters cannot be null.
+		POST: Returns a descending version of the 'sort' that was originally passed to the function.
 		*/
 		static void radixSortDesc(T** sort, int num_to_sort, int num_chars, char(*getRadixChar) (T* item, int index));  //algorithm 2
-		/*
-		PRE:  
-		POST: 
-		*/
  
 	public:
 		/*
-		PRE:  
-		POST: 
+		PRE:  Must pass 'sort', a pointer to an array of pointers that is to be sorted and returned. Will be sorted either ascending or descending depending
+					on the users choice (bool asc).
+		POST: Function will return the original 'sort' (a pointer to an array of pointers) that is sorted depending on the users choice.
 		*/
-		static T** radixSort(T** sort, int num_to_sort, int num_chars, bool asc, char (*getRadixChar) (T* item, int index));
+		static T** radixSort(T** sort, int num_to_sort, int num_chars, bool ascending, char (*getRadixChar) (T* item, int index));
 		/*
 		PRE:  
-		POST: 
+		POST: Will return the index of the bin that the character passed in should be placed. Places lower case and upper case letters in the same bin.
 		*/
 		static int ASCII(char a);
 };
 
 template < class T >
-T** RadixSort<T>::radixSort(T** unsorted, int num_to_sort, int num_chars, bool asc, char (*getRadixChar) (T* item, int index))
+T** RadixSort<T>::radixSort(T** unsorted, int num_to_sort, int num_chars, bool ascending, char (*getRadixChar) (T* item, int index))
 {
 	//DO THIS
 	T** sort = new T*[num_to_sort];
@@ -56,14 +54,14 @@ T** RadixSort<T>::radixSort(T** unsorted, int num_to_sort, int num_chars, bool a
 		sort[i] = unsorted[i];
 	}
 	
-	if (asc)   //if ascending.. then call the ascending function
+	if (ascending)   //if ascending.. then call the ascending function
 	{
-		radixSortAsc(sort, num_to_sort, num_chars, getRadixChar);
+		radixSortAsc(sort, num_to_sort, num_chars, getRadixChar);		//having issues with the syntax of the function pointer
 	}
 	
 	else  //if they dont want ascending.. then call the descending function.
 	{
-		radixSortDesc(sort, num_to_sort, num_chars, getRadixChar);
+		radixSortDesc(sort, num_to_sort, num_chars, getRadixChar);		//same comment as directy above.
 	}
 
 	return sort;
@@ -199,7 +197,7 @@ int RadixSort<T>::ASCII(char a)
 {
 	//index 0 = symbols.. index 1 = 0, index 2 = 1.... index 10 = 9, index 11 = a ..... index 37 = z.
 
-	if (a <= 48 && a >= 57)		//if 'a' is a number.. return index to be placed at ('a' - 47) ( because if 'a' is 5.. its ascii value is 53.. so 53-47 = 6.. which is the correct index)
+	if (a <= 48 && a >= 57)				//if 'a' is a number.. return index to be placed at ('a' - 47) ( because if 'a' is 5.. its ascii value is 53.. so 53-47 = 6.. which is the correct index)
 		return a - 47;
 
 	else if (a <= 65 && a >= 90)		//if 'a' is a character.. return index to be placed at.. ('a' - 54).. because if 'a' is 'b' then its ascii value is 66... 66 - 54 = 11..)

@@ -25,6 +25,7 @@ void deleteCDs(ListArray<CD>* list)
 
 int main()
 {
+	//TIME TO DEBUG!!!
    ListArray<CD>* list = CD::readCDs("cds.txt");
    int size = list->size();
 
@@ -43,34 +44,39 @@ int main()
 	//DO THIS
 	//test both radix sort methods using the cds array
 
+   int num_chars = 50;
+
 	//ascending first.
 	bool ascending = true;
-	CD** cds_asc = RadixSort<CD>::radixSort(cds, count, 50, ascending, &CD::getRadixChar);
+	
+	CD** cds_asc = RadixSort<CD>::radixSort(cds, count, num_chars, ascending, &CD::getRadixChar);
 
-	cout << "This is ascending order......" << endl;
+	cout << endl << "This is ascending order......" << endl << endl;
 	for (int i = 0; i < count; i++)
 	{
 		String* title = cds_asc[i]->getKey();
 		title->displayString();
+		cout << ", ";
 	}
 
-	cout << "Press enter to test Descending." << endl;
+	
+	cout << endl << endl << "Press enter to test Descending." << endl;
 	cin.get();
-	cout << endl << endl << endl;
-
+	
 	ascending = false;
-	CD** cds_desc = RadixSort<CD>::radixSort(cds, count, 50, ascending, &CD::getRadixChar);
+	CD** cds_desc = RadixSort<CD>::radixSort(cds, count, num_chars, ascending, &CD::getRadixChar);
 
-	cout << "This is descending order........." << endl;
+	cout << "This is descending order........." << endl << endl;
 
 	for (int i = 0; i < count; i++)
 	{
 		String* title = cds_desc[i]->getKey();
 		title->displayString();
+		cout << ", ";
 	}
 
    delete[] cds;
-   delete[] cds_asc;
+   //delete[] cds_asc;
    delete[] cds_desc;
 
    deleteCDs(list);

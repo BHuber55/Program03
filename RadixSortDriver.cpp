@@ -25,7 +25,6 @@ void deleteCDs(ListArray<CD>* list)
 
 int main()
 {
-	//TIME TO DEBUG!!!
    ListArray<CD>* list = CD::readCDs("cds.txt");
    int size = list->size();
 
@@ -51,12 +50,16 @@ int main()
 	
 	CD** cds_asc = RadixSort<CD>::radixSort(cds, count, num_chars, ascending, &CD::getRadixChar);
 
-	cout << endl << "This is ascending order......" << endl << endl;
+	cout << endl << "Ascending Order: " << endl << endl;
 	for (int i = 0; i < count; i++)
 	{
+		//this is just displaying the title, not the whole CD.
 		String* title = cds_asc[i]->getKey();
 		title->displayString();
-		cout << ", ";
+		if (i != count - 1)
+		{
+			cout << ", ";
+		}
 	}
 
 	
@@ -66,17 +69,20 @@ int main()
 	ascending = false;
 	CD** cds_desc = RadixSort<CD>::radixSort(cds, count, num_chars, ascending, &CD::getRadixChar);
 
-	cout << "This is descending order........." << endl << endl;
+	cout << "Descending Order: " << endl << endl;
 
 	for (int i = 0; i < count; i++)
 	{
 		String* title = cds_desc[i]->getKey();
 		title->displayString();
-		cout << ", ";
+		if (i != count - 1)
+		{
+			cout << ", ";
+		}
 	}
 
    delete[] cds;
-   //delete[] cds_asc;
+   delete[] cds_asc;
    delete[] cds_desc;
 
    deleteCDs(list);

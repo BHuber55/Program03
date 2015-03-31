@@ -53,7 +53,6 @@ class RadixSort
 template < class T >
 T** RadixSort<T>::radixSort(T** unsorted, int num_to_sort, int num_chars, bool ascending, char (*getRadixChar) (T* item, int index))
 {	
-	//DEBUGGING TIME!!!!!
 	//DO THIS
 	T** sort = new T*[num_to_sort];
 	//copying the array over.
@@ -72,28 +71,30 @@ T** RadixSort<T>::radixSort(T** unsorted, int num_to_sort, int num_chars, bool a
 		radixSortDesc(sort, num_to_sort, num_chars, getRadixChar);
 	}
 
+	//returns the now sorted array of titles.
 	return sort;
 }
 
 template < class T >
 void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, char(*getRadixChar)(T* st, int index))
 {
-	//DEBUG TIME!!!
 	//DO THIS
 	int num_queues = 37;
 	QueueLinked<T>** bins = new QueueLinked<T>*[num_queues];
 
-	for (int i = 0; i < num_queues; i++)			//i think the real issue is with this for loop.. it just creates all the queues.
+	for (int i = 0; i < num_queues; i++)
 	{
+		//creating a queue for each spot.
 		bins[i] = new QueueLinked<T>();
 	}
 
 	while (!bin->isEmpty())
 	{
+		//while loop that removes the item, compares it, then finds the location it should go, then places the item there.
 		T* item = bin->dequeue();
 		char radix_char = (*getRadixChar)(item, curr_char);
-		int index = ASCII(radix_char);
-		bins[index]->enqueue(item);
+		int index = ASCII(radix_char);		
+		bins[index]->enqueue(item);		//adds the item that was dequeue'd, at the correct location depending on sort.
 	}
 
 	for (int i = 0; i < num_queues; i++)
@@ -102,6 +103,7 @@ void RadixSort<T>::binSort(QueueLinked<T>* bin, int curr_char, int num_chars, ch
 		{
 			if (curr_char < num_chars)
 			{
+				//recurrsion call!!
 				binSort(bins[i], curr_char + 1, num_chars, getRadixChar);
 			}
 		}
@@ -159,7 +161,7 @@ void RadixSort<T>::radixSortAsc(T** sort, int num_to_sort, int num_chars, char(*
 template < class T >
 void RadixSort<T>::radixSortDesc(T** sort, int num_to_sort, int num_chars, char(*getRadixChar)(T* st, int index))
 {
-	
+	//honestly this is the exact same as the ascending method except this time, the descAscii function is called which tells it a different location to be put in.
 	int num_queues = 37;  //covers letters and digits
 	QueueLinked<T>** bins = new QueueLinked<T>*[num_queues];  
 
@@ -169,7 +171,7 @@ void RadixSort<T>::radixSortDesc(T** sort, int num_to_sort, int num_chars, char(
 		bins[i] = new QueueLinked<T>();
 	}
 
-	for (int i = num_chars; i > 0; i--)  //number of times to bin stuff						CHANGED NUM_CHARS TO 5 HERE TO MAKE IT WORK!!!!!!!!!!!!!
+	for (int i = num_chars; i > 0; i--)  //number of times to bin stuff
 	{
 		for (int x = 0; x < num_to_sort; x++)
 		{
